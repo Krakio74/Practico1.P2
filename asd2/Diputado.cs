@@ -14,10 +14,6 @@ namespace Practico1.P2
         {
             this.NumAsientoCamaraBaja = NumAsientoCamaraBaja;
         }
-        public override void GetCamara()
-        {
-            Console.WriteLine(this.GetType().Name);
-        }
         public override void presentarPropuestaLegislativa(Parlamento Parlamento, string Propuesta)
         {
             Parlamento.AgregarPropuesta(new Propuestas(this, Propuesta));
@@ -25,6 +21,10 @@ namespace Practico1.P2
         public override void Votar(Parlamento Parlamento, int PropuestaVotada)
         {
             Parlamento.GetPropuestas(PropuestaVotada).SetVotos(1);
+        }
+        public override void ParticiparDebate(Parlamento Parlamento, int PropuestaDebatida)
+        {
+            Parlamento.GetPropuestas(PropuestaDebatida).SetPersonasDebatiendo(1);
         }
     }
 }

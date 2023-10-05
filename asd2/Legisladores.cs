@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Practico1.P2
 {
-    internal class Legisladores
+    abstract class Legisladores
     {
 
         private string PartidoPolitico;
@@ -52,15 +52,14 @@ namespace Practico1.P2
         public void SetEdad(int Edad)=> this.Edad = Edad;
         public bool GetCasado() => Casado;  
         public void SetCasado(bool Casado) =>this.Casado = Casado;
-        public virtual void GetCamara()
+        public void GetCamara()
         {
-            
+            Console.WriteLine("ASD");
+            Console.WriteLine(this.GetType().Name);
         }
-        public virtual void presentarPropuestaLegislativa(Parlamento Parlamento, string Propuesta)
-        {
-
-        }
-        public virtual void Votar(Parlamento Parlamento, int PropuestaVotada) { }
+        public abstract void presentarPropuestaLegislativa(Parlamento Parlamento, string Propuesta);
+        public abstract void Votar(Parlamento Parlamento, int PropuestaVotada);
+        public abstract void ParticiparDebate(Parlamento Parlamento, int PropuestaDebatida);
        
     }
 }

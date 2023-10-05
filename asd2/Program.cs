@@ -30,15 +30,16 @@ namespace Practico1.P2
                     Console.WriteLine("1. Crear Senador");//pronto
                     Console.WriteLine("2. Crear Diputado");//pronto
                     Console.WriteLine("3. Agregar Legislador a Parlamento");//pronto
-                    Console.WriteLine("4. Presentar propuesta");//pronto
-                    Console.WriteLine("5. Debatir");//pronto
+                    Console.WriteLine("4. Presentar propuesta legislativa");//pronto
+                    Console.WriteLine("5. Debatir propuesta");//pronto
                     Console.WriteLine("6. Listado de Legisladores");//pronto
                     Console.WriteLine("7. Legisladores por tipo");//pronto
                     Console.WriteLine("8. Votar");
                     Console.WriteLine("9. ver propuestas");
-                    Console.WriteLine("10. Salir");
+                    Console.WriteLine("10. Ver Camara");
+                    Console.WriteLine("11. Salir");
                     OpcionValida = int.TryParse(Console.ReadLine(), out Opcion);
-                    if (!OpcionValida || Opcion > 10 || Opcion < 1)
+                    if (!OpcionValida || Opcion > 11 || Opcion < 1)
                     {
                         Console.WriteLine("La opcion ingresada es invalida, vuelva a ingresarla");
                         OpcionValida = false;
@@ -150,12 +151,45 @@ namespace Practico1.P2
                         break;
                     case 9:
                         var Propuestas = Parlamento.GetPropuestas();
-                        for(int i = 0; i< Propuestas.Count; i++)
+                        if (Parlamento.GetPropuestas().Count == 0)
                         {
-                            Console.WriteLine($"{i}. {Propuestas[i].GetPropuesta()}. Fue votada \x1b[32m{Propuestas[i].GetVotos()}\x1b[0m");
+                            Console.WriteLine("No existe ninguna propuesta ingresada \nIngrese una propuesta antes de continuar");
+                            Console.ReadLine();
+                            break;
                         }
+                        else
+                        {
+                            for (int i = 0; i < Propuestas.Count; i++)
+                            {
+                                Console.WriteLine($"{i}. {Propuestas[i].GetPropuesta()}. Fue votada \x1b[32m{Propuestas[i].GetVotos()}\x1b[0m");
+                            }
+                        }                        
                         break;
                     case 10:
+                        var Lista = Parlamento.GetLegisladores();
+                        int LegisladorSeleccionado;
+                        bool CorrectInput = false;
+                        if(Parlamento.GetLegisladores().Count == 0)
+                        {
+                            Console.WriteLine("No hay Legisladores registrados.\nPresione enter para continuar.");
+                            Console.ReadLine();
+                            break;
+                        }
+                        do
+                        {
+                            Console.WriteLine("De quien quiere ver la camara?");
+                            for (int i = 0; i < Lista.Count; i++)
+                            {
+                                Console.WriteLine($"{i}. {Lista[i].GetApellido()} {Lista[i].GetNombre()}");
+                            }
+                            CorrectInput = int.TryParse(Console.ReadLine(), out LegisladorSeleccionado);
+                        } while (!CorrectInput);
+                        Legisladores Seleccion = Parlamento.GetLegisladores(LegisladorSeleccionado);
+                        Seleccion.GetCamara();
+                        Console.WriteLine("Presione enter para continuar");
+                        Console.ReadLine();
+                        break;
+                    case 11:
                         Environment.Exit(0);
                         break;
 
@@ -315,6 +349,19 @@ namespace Practico1.P2
             int Vota;
             int PropuestaVotada;
             Legisladores QuienVota;
+
+            if(Parlamento.GetLegisladores().Count == 0)
+            {
+                Console.WriteLine("No existen legisladores en el parlamento \nIngreselos primero antes de continuar");
+                Console.ReadLine();
+                return;
+            }
+            if(Parlamento.GetPropuestas().Count == 0)
+            {
+                Console.WriteLine("No existe ninguna propuesta ingresada \nIngrese una propuesta antes de continuar");
+                Console.ReadLine();
+                return;
+            }
             Console.WriteLine("Quien vota?");
             for(int i = 0; i < Votantes.Count; i++)
             {

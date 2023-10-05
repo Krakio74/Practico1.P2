@@ -16,9 +16,30 @@ namespace Practico1.P2
             ListaLegisladores = new List<Legisladores>();
             Propuestas = new List<Propuestas>();
         }
+        public List<Legisladores> GetLegisladores()
+        {
+            return ListaLegisladores;
+        }
+        public Legisladores GetLegisladores(int Indice)
+        {
+            return ListaLegisladores[Indice];
+        }
         public void RegistrarLegislador(Legisladores Legisladores)
         {
             ListaLegisladores.Add(Legisladores);
+        }
+        public void AgregarPropuesta(Propuestas Propuesta)
+        {
+            Propuestas.Add(Propuesta);
+        }
+
+        public List<Propuestas> GetPropuestas()
+        {
+            return Propuestas;
+        }
+        public Propuestas GetPropuestas(int PropuestaRequerida)
+        {
+            return Propuestas[PropuestaRequerida];
         }
         public void ListaCamaras(object TipoRequerido)
         {
@@ -47,22 +68,8 @@ namespace Practico1.P2
                 Console.WriteLine($"Existen {Conteo} de {legisladores1.Name}");
             }
         }
-        public void AgregarPropuesta(Propuestas Propuesta)
-        {
-            Propuestas.Add(Propuesta);
-        }
-        public List<Legisladores> GetLegisladores()
-        {
-            return ListaLegisladores;
-        }
-        public List<Propuestas> GetPropuestas()
-        {
-            return Propuestas;
-        }
-        public Propuestas GetPropuestas(int PropuestaRequerida)
-        {
-            return Propuestas[PropuestaRequerida];
-        }
+
+
 
     }
 }
